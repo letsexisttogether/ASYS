@@ -1,11 +1,5 @@
 #pragma once 
 
-/***
-
-  Later it's gonna be linked from the lib
-
-***/
-
 #include <algorithm>
 #include <array>
 
