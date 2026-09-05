@@ -7,6 +7,7 @@ project(ASYS VERSION 1.0.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(CTest)
 
 set(ASYS_BUILD_INCLUDE_DIR ${PROJECT_BINARY_DIR}/include)
 file(MAKE_DIRECTORY ${ASYS_BUILD_INCLUDE_DIR}/ASYS)
@@ -14,5 +15,11 @@ file(MAKE_DIRECTORY ${ASYS_BUILD_INCLUDE_DIR}/ASYS)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 add_subdirectory(Source)
+add_subdirectory(Dependencies)
+
+if(BUILD_TESTING)
+    add_subdirectory(Test)
+endif()
