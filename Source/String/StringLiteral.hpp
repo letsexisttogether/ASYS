@@ -28,9 +28,11 @@ namespace ASYS
             return _Size;
         }
 
-        constexpr auto GetLength() const noexcept -> std::size_t
+        consteval auto GetLength() const noexcept -> std::size_t
         {
-            return _Size - 1;
+            const auto nullTermIter = std::ranges::find(Data, '\0');
+
+            return std::distance(Data.begin(), nullTermIter);
         }
 
         constexpr auto operator [] (const std::size_t index)

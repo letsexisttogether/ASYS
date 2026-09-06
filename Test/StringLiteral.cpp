@@ -10,3 +10,13 @@ TEST(Literal, Constuction)
 
     EXPECT_EQ(std::strcmp(literal, cStr), 0);
 }
+
+TEST(Literal, Copy)
+{
+    constexpr auto literal = ASYS::SL{ "CopyMeCompletely" };
+    constexpr auto copy = ASYS::SL<60>{ literal };
+
+    EXPECT_EQ(copy.GetLength(), 16);
+
+    EXPECT_TRUE(literal == copy);
+}
