@@ -20,3 +20,22 @@ TEST(Literal, Copy)
 
     EXPECT_TRUE(literal == copy);
 }
+
+consteval auto BuildLiteral()
+{
+    auto literal = ASYS::SL<255>{};
+
+    literal.Append(ASYS::SL{ "App" });
+    literal.Append(ASYS::SL{ "end" });
+
+    return literal;
+}
+
+TEST(Literal, Append)
+{
+    constexpr auto literal = BuildLiteral();
+
+    static_assert(literal.GetSize() == 255);
+    static_assert(literal.GetLength() == 6);
+    static_assert(literal == ASYS::SL{ "Append" });
+}

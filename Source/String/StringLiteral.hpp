@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <string_view>
 
 namespace ASYS
 {
@@ -66,6 +67,32 @@ namespace ASYS
             return result;
         }
 
+        consteval auto Append(std::string_view str) -> StringLiteral&
+        {
+            const auto length = GetLength();
+
+            if (length + str.size() >= _Size)
+            {
+                throw "[ASYS::StringLiteral::Append] The string "
+                    "after the operations will exceed _Size";
+            }
+
+            std::copy(str.begin(), str.end(), Data.begin() + length);
+
+            Data[length + str.size()] = '\0';
+
+            return *this;
+        }
+
+        template<std::size_t _OtherSize>
+        consteval auto Append(StringLiteral<_OtherSize> other)
+            -> StringLiteral&
+        {
+            return Append(std::string_view{
+                other.Data.data(),
+                other.GetLength()
+            });
+        }
         template <std::size_t _OtherSize>
         constexpr auto operator == (const StringLiteral<_OtherSize>& literal)
             const noexcept -> bool
