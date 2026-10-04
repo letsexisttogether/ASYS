@@ -129,4 +129,16 @@ namespace ASYS
 
     template <std::size_t _Size>
     using SL = StringLiteral<_Size>;
+
+    template <StringLiteral _Literal>
+    consteval auto Trim()
+    {
+        constexpr auto length = _Literal.GetLength();
+
+        auto result = StringLiteral<length + 1>{};
+
+        std::copy_n(_Literal.Data.begin(), length + 1, result.Data.begin());
+
+        return result;
+    }
 };

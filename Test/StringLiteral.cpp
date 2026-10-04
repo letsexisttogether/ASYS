@@ -39,3 +39,13 @@ TEST(Literal, Append)
     static_assert(literal.GetLength() == 6);
     static_assert(literal == ASYS::SL{ "Append" });
 }
+
+TEST(Literal, Trim)
+{
+    constexpr auto literal = ASYS::SL{ "Hello\0\0\0\0\0" };
+    constexpr auto properLiteral = ASYS::Trim<literal>();
+
+    static_assert(properLiteral.GetSize() == 6);
+    static_assert(properLiteral.GetLength() == 5);
+    static_assert(properLiteral == ASYS::SL{ "Hello" });
+}
